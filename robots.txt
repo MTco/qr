@@ -1,0 +1,7 @@
+# robots.txt
+User-agent: meanpathbot
+Disallow: /
+User-agent: *
+Sitemap: /sitemap.xml
+# end robots.txt
+
