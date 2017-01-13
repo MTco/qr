@@ -11,12 +11,7 @@
 	<!-- Not a WordPress site -->
 	<title></title>
 	<!--[if IE]><meta http-equiv="imagetoolbar" content="no" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
-	<script type="text/javascript">
-		var e,asdf=location.href;
-		try{window.opener=null;}catch(e){}
-		sessionStorage.redirect=asdf;
-		//location.href='index.html#'+asdf;
-	</script>
+	<script type="text/javascript">var e;try{window.opener=null;}catch(e){}</script>
 	<noscript><meta http-equiv="refresh" content="1;URL='index.html'" /></noscript>
 	<meta name="HandheldFriendly" content="True" />
 	<meta name="MobileOptimized" content="320" />
@@ -86,7 +81,6 @@
 	</div>
 	<script type="text/javascript">
 		(function(){
-			updateQRCode();
 			try{
 				UpUp.start({
 					'cache-version':'v0.1',
@@ -114,11 +108,6 @@
 				});
 			}catch(e){}
 		})();
-		/*
-		$(function(){
-			updateQRCode();
-		}(qrShittery));
-		//*/
 	</script>
 </body>
 </html>

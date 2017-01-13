@@ -1,0 +1,104 @@
+body {
+	margin: 5px;
+	margin-top: 7px;
+	font-size: 14px;
+	vertical-align: middle;
+	background-color: rgb(255, 255, 255);
+	overflow: hidden;
+}
+
+div.wrap {
+	height: 100%;
+	display: -moz-box;
+}
+
+div.qrcode {
+	line-height:0;
+	margin-left:auto;
+	margin-right:auto
+}
+
+div.nonQRSection {
+	display: -moz-box;
+	line-height: 0;
+}
+
+div.extraUI {
+	display: -moz-box;
+	margin: 0;
+	padding: 0;
+}
+
+div.qrText {
+	margin:0;
+	padding:0;
+}
+
+textarea.qrText {
+	resize:none;
+	margin:0px;
+	height:100%;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+div.zoomGroup {
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+div#qrcode:hover + div.zoomGroup, div.zoomGroup:hover {
+	display: block;
+}
+
+div.controls {
+	position: relative;
+}
+
+div.functionality {
+	position: absolute;
+	bottom:0;
+}
+
+a.control {
+	margin: 2px;
+	text-decoration: none;
+}
+
+a#hideExtraUI {
+	display: inline-block;
+}
+
+a#showExtraUI {
+	display: none;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  color: rgba(82, 168, 236, 0.8);
+  height: 16px;
+  width: 14px;
+}
+
+a:hover, a:focus {
+	color: rgb(0, 85, 128);
+}
+
+textarea {
+  display: inline-block;
+  height: 20px;
+  padding: 4px 6px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  overflow: auto;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+}
+
+textarea:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+}
