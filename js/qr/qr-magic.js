@@ -1,4 +1,5 @@
-//(function(app){}(qrShittery));
+//(function(app){}(jQuery, window));
+//function(app){}(jQuery, window);
 	var QueryString=function(){
 			var query_string={},query=document.location.search.substring(1),vars=query.split('&');
 			for (var i=0;i<vars.length;i++)
@@ -21,19 +22,6 @@
 		});
 	}
 
-	function pairVars(args,glue)
-	{
-		var vars=[],pair;
-		glue=typeof glue === 'undefined' || glue === '' ? '&' : glue;
-		args=args.split(glue);
-		for (var i=0;i<args.length;i++)
-		{
-			pair = args[i].split('=');
-			vars[pair[0]] = pair[1];
-		}
-		return vars;
-	}
-
 	var lastRequestedPanelSize,panelResizeTimer;
 	function clearPanelResizeTimer()
 	{
@@ -49,7 +37,7 @@
 
 		if(isRunningInAddon && addon)
 		{
-			if(canvasSize==undefined)
+			if(canvasSize === undefined)
 			{
 				var qrEle = document.getElementById('qrcode');
 				if(qrEle)
@@ -78,9 +66,9 @@
 			{
 				console.warn('couldn\'t calculate panel height/width for canvasSize: ' + canvasSize);
 			}
-			else if(lastRequestedPanelSize && lastRequestedPanelSize['height'] == height && lastRequestedPanelSize['width'] == width)
+			else if(lastRequestedPanelSize && lastRequestedPanelSize['height'] === height && lastRequestedPanelSize['width'] === width)
 			{
-				addon.port.emit('resizePanel', {'height': height, 'width': width});
+				//addon.port.emit('resizePanel', {'height': height, 'width': width});
 				lastRequestedPanelSize = undefined;
 			}
 			else
@@ -91,8 +79,32 @@
 		}
 	}
 
-	function strpos(haystack,needle,offset){var i=(haystack+'').indexOf(needle,(offset||0));return i===-1?false:i;};
-	function convert(str){return str.replace(/\\u([a-f0-9]{4})/gi,function(found,code){return String.fromCharCode(parseInt(code,16));});}
+	function escapeForHtml(str)
+	{
+		if (!str) return str
+		str.replace(/\&/g,'&amp;').replace(/\</g,'&lt;').replace(/\>/g,'&gt;').replace(/\"/g,'&quot;').replace(/\'/g,'&#x27;').replace(/\//g,'&#x2F;');return str;
+	}
+
+	function escapeForRegex(str)
+	{
+		var regexChars = /[.*+?^${}()|[\]\\]/g;
+		str.replace(regexChars,"\\$&");
+		return str;
+	}
+
+	function parseQueryString(str,delimiter)
+	{
+		delimiter = typeof delimiter !== 'undefined' && delimiter !== '' ? delimiter : '&';
+		str = typeof str !== 'undefined' && str !== '' ? str : location.search.substring(1).split(delimiter);
+		var ret = {}, vardef = null, varname = null, value = null, i = null;
+		for (i = str.length; i--;) {
+			vardef = str[i].split('='), varname = vardef[0], value = vardef[1];
+			ret[varname] = unescape(value);
+		}
+		return ret;
+	}
+	function strpos(haystack,needle,offset){var i = (haystack + '').indexOf(needle, (offset || 0));i = i === -1 ? false : i;return i;};
+	function convert(str){str = str.replace(/\\u([a-f0-9]{4})/gi,function(found, code){return String.fromCharCode(parseInt(code, 16));});return str;}
 
 	var pendingPayload,lastUpdateQRCodeParams,e,dislikeFace='\u2639',USflag='\uD83C\uDDFA\uD83C\uDDF8',tmp=null,httpd='http://',targetURL='',hash=location.hash || '';
 	function updateQRCode(text, errorCorrectLevel, blockSize, showExtraUI)
@@ -102,7 +114,7 @@
 			errorCorrectLevel = (lastUpdateQRCodeParams && lastUpdateQRCodeParams['errorCorrectLevel'])?
 										lastUpdateQRCodeParams['errorCorrectLevel']:
 										QueryString['errorCorrectLevel'];
-			if(errorCorrectLevel==undefined)errorCorrectLevel = 'L';
+			if(errorCorrectLevel === undefined)errorCorrectLevel = 'L';
 		}
 
 		if(isNaN(blockSize) || blockSize<1 || blockSize>10)
@@ -114,34 +126,34 @@
 			blockSize = (lastUpdateQRCodeParams && lastUpdateQRCodeParams['blockSize'])?
 										lastUpdateQRCodeParams['blockSize']:
 										QueryString['blockSize'];
-			if(blockSize===undefined)blockSize = 3;
+			if(blockSize === undefined)blockSize = 3;
 		}
 
-		if(showExtraUI===undefined)
+		if(showExtraUI === undefined)
 		{
 			showExtraUI = (lastUpdateQRCodeParams && lastUpdateQRCodeParams['showExtraUI']);
 			if(showExtraUI === undefined)showExtraUI = true;
 		}
 
 		handleShowExtraUI(showExtraUI);
-		hash=hash.split('#').join('');
-		hash=decodeURIComponent(hash);
-		if(strpos(hash,'.qr') !== false){
-			hash=hash.split('.qr').join('');
+		hash = hash.split('#').join('');
+		hash = decodeURIComponent(hash);
+		if(strpos(hash, '.qr') !== false){
+			hash = hash.split('.qr').join('');
 		}
-		if(strpos(hash,'pres.me/') === false){
-			tmp=dislikeFace;
-			targetURL+='dlike.co/';
+		if(strpos(hash, 'pres.me/') === false){
+			tmp = dislikeFace;
+			targetURL += 'dlike.co/';
 		}else{
-			tmp=USflag;
-			targetURL+='pres.me/';
+			tmp = USflag;
+			targetURL += 'pres.me/';
 		}
-		tmp=convert(tmp);
-		hash=hash.split(httpd+targetURL).join('').split(targetURL).join('').split(tmp).join('');
-		if(strpos(hash,'&') !== false){
-			hash=pairVars(hash,'&');
+		tmp = convert(tmp);
+		hash = hash.split(httpd+targetURL).join('').split(targetURL).join('').split(tmp).join('');
+		if(strpos(hash, '&') !== false){
+			hash = parseQueryString(hash);
 		}
-		text=tmp+httpd+targetURL+hash;
+		text = tmp + httpd + targetURL + hash;
 		text = Utf8.encode(text);
 
 		var reqVersion = -1, modCount = null, canvasSize = null, element = null, qr = null;
@@ -214,7 +226,7 @@
 		if(textArea)
 		{
 			var textAreaText = textArea.value;
-			if(textAreaText!=text)
+			if(textAreaText !== text)
 			{
 				textArea.value = text;
 			}
@@ -266,7 +278,7 @@
 	{
 		if(isRunningInAddon && addon)
 		{
-			addon.port.emit('setBlockSize', lastUpdateQRCodeParams['blockSize']);
+			//addon.port.emit('setBlockSize', lastUpdateQRCodeParams['blockSize']);
 		}
 	}
 

@@ -17,7 +17,8 @@
 //---------------------------------------------------------------------
 // QR8bitByte
 //---------------------------------------------------------------------
-//(function(app){}(qrShittery));
+//(function(app){}(jQuery, window));
+//function(app){}(jQuery, window);
 	function QR8bitByte(data) {
 		this.mode = QRMode.MODE_8BIT_BYTE;
 		this.data = data;

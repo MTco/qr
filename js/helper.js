@@ -3,7 +3,6 @@
  */
 
 (function(document) {
-
     window.MBP = window.MBP || {};
 
     /**

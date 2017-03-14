@@ -4,7 +4,8 @@
 *  http://www.webtoolkit.info/
 *
 **/
-//(function(app){}(qrShittery));
+//(function(app){}(jQuery, window));
+//function(app){}(jQuery, window);
 	var Utf8 = {
 
 		// public method for url encoding
