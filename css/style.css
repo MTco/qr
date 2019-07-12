@@ -1,0 +1,230 @@
+html {
+	height: 100%; /*
+	font-size: 62.5%;10px with default settings */
+	font-size:100%;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;
+}
+body {
+	position:relative;
+	width:100%; /* width needed for Firefox */
+	height:100%;
+	margin: 0;
+	/* old flexbox - Webkit and Firefox. For backwards compatibility */
+	display: -webkit-box; display: -moz-box;
+	/* middle-aged flexbox. Needed for IE 10 */
+	display: -ms-flexbox;
+	/* new flexbox. Chrome (prefix), Opera, upcoming browsers without */
+	display: -webkit-flex;
+	display: flex;
+	/* old flexbox: box-* */
+	-webkit-box-align: center; -moz-box-align: center;
+	/* middle flexbox: flex-* */
+	-ms-flex-align: center;
+	/* new flexbox: various property names */
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-box-pack: center; -moz-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	background-color:#fff;
+	color:#444;
+	padding-bottom:50px;
+	line-height:1.42857;
+	font-size:100%;
+	direction:ltr;
+	text-rendering:optimizelegibility;
+}
+/*
+html{
+display: box;
+box-orient: vertical;
+box-pack: center;
+box-align: center;
+}
+
+.item-to-be-centered{
+display:block;
+}
+*/
+
+/*
+position:absolute;
+left: 30%;
+right:30%;
+top: 25%;
+bottom:25%;
+*/
+/*
+@media all and (min-width: 800px) {
+	.main    { flex: 3 0px; }
+	.aside-1 { order: 1; }
+	.main    { order: 2; }
+	.aside-2 { order: 3; }
+	.footer  { order: 4; }
+}
+*/
+
+*, *:before, *:after {
+	box-sizing:border-box;
+}
+.floatLeft,.fl{
+	width:50%;
+	float:left;
+}
+.floatRight,.fr{
+	width:50%;
+	float:right;
+}
+.clearLeft,.cl{
+	clear:left;
+}
+.clearRight,.cr{
+	clear:right;
+}
+
+/* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: h5bp.com/p */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+
+.legal {
+	color:#000 !important;
+	font-family:times,Times New Roman,times-roman,georgia,serif !important;
+	font-size:12pt !important;
+	text-transform:uppercase !important;
+}
+a.legal {
+	font-size:inherit !important;
+}
+.exception ,
+.legal.exception ,
+.legal_exception {
+	text-transform:inherit !important;
+}
+
+.textLeft{
+	text-align:left;
+}
+.textRight{
+	text-align:right;
+}
+.textCenter{
+	text-align:center;
+}
+.title{
+	font-weight:bold;
+}
+.note{
+	font-size:72%;
+	font-style:italic;
+}
+ol{
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+ol li{
+	padding-top:10%;
+}
+aside{
+	position:relative;
+	float:left;
+}
+aside > div{
+	margin-top:20px;
+}
+img {-ms-interpolation-mode:bicubic;}
+img{
+	border:0;
+	width:120px;
+	height:36px;
+	display:inline-block;
+}
+:required:focus {
+	box-shadow: 0  0 3px rgba(255,0,0,0.5);
+}
+.visibilityHidden{
+	visibility:hidden;
+}
+.dislikeHome{
+	width:100%;
+	font-size:200%;
+}
+.passion{
+	background:#c33b32;
+	color:#fff;
+}
+header{
+	padding:0 0 20px 20px;
+	font-size:165%;
+	font-weight:bold;
+	display:flex;
+}
+footer, .wrapper:after {
+	/* .push must be the same height as footer */
+	height:142px;
+}
+.wrapper {
+	width:100%;
+	height:10rem;
+	padding:0 3rem;
+	display:-webkit-box; display: -moz-box;
+	display:-ms-flexbox;
+	display:-webkit-flex;
+	display:flex;
+
+	-webkit-box-align: center;-moz-box-align: center;
+	-ms-flex-align:center;
+	-webkit-justify-content:center;
+	justify-content:center;
+
+	-webkit-box-pack:center;-moz-box-pack: center;
+	-ms-flex-pack:center;
+	-webkit-align-items:center;
+	align-items:center;
+
+	/*
+	position:relative;
+	width:800px;
+	height:600px;
+	margin:0 auto;
+	display:-webkit-box;
+	display:-moz-box;
+	display:-ms-flexbox;
+	display:-webkit-flex;
+	display:flex;
+
+	-webkit-flex-flow:row wrap;
+	flex-flow:row wrap;
+
+	text-align:center;
+	*/
+}
+	.wrapper > * {
+		flex: 1 100%;
+	}
+	.wrapper:after {
+	  content:"";
+	  display:block;
+	}
+
+	.inner {
+		/*
+		position: absolute;
+		top: 0; left: 0; bottom: 0; right: 0;
+		width:100%;
+		height:30%;
+		overflow: auto;
+		margin: auto;
+		*/
+		background:#fff;
+		text-align:left;
+	}
+	.container {
+		position:relative;
+		max-width:1170px;/*970px;750px;*/
+		margin:0 auto;
+		padding:0 15px;
+		justify-content:center;
+	}
+	.container:after {
+		clear:both;
+	}
